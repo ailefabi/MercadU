@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.Repository.ProductoRepository;
 import ucr.ac.cr.MercadU.Service.ProductoService;
+import ucr.ac.cr.MercadU.model.DTO.ProductoDTO;
 import ucr.ac.cr.MercadU.model.Producto;
 
 import java.util.List;
@@ -14,15 +15,18 @@ public class ProductoServiceImpl implements ProductoService {
     @Autowired
     private ProductoRepository productoRepository;
 
-
     @Override
-    public Producto crear(Producto producto) {
+    public Producto crear(ProductoDTO dto) {
 
-        validarProducto(producto);
+        Producto p = new Producto();
+        p.setNombre(dto.getNombre());
+        p.setDescripcion(dto.getDescripcion());
+        p.setPrecio(dto.getPrecio());
+        p.setStock(dto.getStock());
+        p.setDisponible(dto.isDisponible());
 
-        return productoRepository.save(producto);
+        return productoRepository.save(p);
     }
-
 
     @Override
     public List<Producto> listar() {
@@ -36,42 +40,22 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Producto actualizar(Long id, Producto producto) {
+    public Producto actualizar(Long id, ProductoDTO dto) {
 
-        validarProducto(producto);
-
-        Producto existente = productoRepository.findById(id)
+        Producto p = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
-        existente.setNombre(producto.getNombre());
-        existente.setDescripcion(producto.getDescripcion());
-        existente.setPrecio(producto.getPrecio());
-        existente.setStock(producto.getStock());
-        existente.setDisponible(producto.isDisponible());
+        p.setNombre(dto.getNombre());
+        p.setDescripcion(dto.getDescripcion());
+        p.setPrecio(dto.getPrecio());
+        p.setStock(dto.getStock());
+        p.setDisponible(dto.isDisponible());
 
-        return productoRepository.save(existente);
+        return productoRepository.save(p);
     }
 
     @Override
     public void eliminar(Long id) {
-        if (!productoRepository.existsById(id)) {
-            throw new RuntimeException("Producto no encontrado");
-        }
         productoRepository.deleteById(id);
-    }
-
-    private void validarProducto(Producto producto) {
-
-        if (producto.getNombre() == null || producto.getNombre().isEmpty()) {
-            throw new RuntimeException("El nombre no puede estar vacío");
-        }
-
-        if (producto.getPrecio() <= 0) {
-            throw new RuntimeException("El precio debe ser mayor a 0");
-        }
-
-        if (producto.getStock() < 0) {
-            throw new RuntimeException("El stock no puede ser negativo");
-        }
     }
 }

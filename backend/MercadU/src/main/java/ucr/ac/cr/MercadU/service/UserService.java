@@ -19,8 +19,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserRespondDTO saveUser(UserRequestDTO request) {
-        Optional<User> opt = this.userRepository.findById(request.getId());
-        if (opt.isPresent()) return null;
+        if (userRepository.findByEmailUcr(request.getEmailUcr()).isPresent()) return null;
 
         User user = this.convertToEntity(request);
         return this.convertToRespondDTO(this.userRepository.save(user));
@@ -65,6 +64,8 @@ public class UserService {
         user.setId(request.getId());
         user.setName(request.getName());
         user.setEmailUcr(request.getEmailUcr());
+        user.setRol(request.getRol());         // faltaba
+        user.setPassword(request.getPassword()); // faltaba
         return user;
     }
 
@@ -85,7 +86,7 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        return this.userRepository.loginDTO(email, password);
+        return this.userRepository.loginUserDTO(email, password);
     }
 }
 

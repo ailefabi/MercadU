@@ -5,12 +5,16 @@ public class UserRequestDTO {
     private Integer id;
     private String name;
     private String emailUcr;
+    private String rol;
+    private String password;
 
 
-    public UserRequestDTO(Integer id, String name, String emailUcr) {
+    public UserRequestDTO(Integer id, String name, String emailUcr, String rol, String password) {
         this.id = id;
         this.name = name;
         this.emailUcr = emailUcr;
+        this.rol= rol;
+        this.password=password;
     }
 
     public UserRequestDTO() {
@@ -39,5 +43,21 @@ public class UserRequestDTO {
 
     public void setEmailUcr(String emailUcr) {
         this.emailUcr = emailUcr;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

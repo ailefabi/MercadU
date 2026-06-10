@@ -6,15 +6,18 @@ import org.springframework.data.repository.query.Param;
 import ucr.ac.cr.MercadU.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByName(String name);
     List<User> findAllByOrderByNameAsc();
-    User findByEmailAndPassword(String emailUcr, String password);
+    User findByEmailUcrAndPassword(String emailUcr, String password);
 
-    @Query("SELECT u FROM User u WHERE u.email=:email AND u.password=:password")
-    User loginDTO(@Param("email") String email, @Param("password") String password);
+    Optional<User> findByEmailUcr(String emailUcr);
+
+    @Query("SELECT u FROM User u WHERE u.emailUcr=:emailUcr AND u.password=:password")
+    User loginUserDTO(@Param("emailUcr") String email, @Param("password") String password);
 
 
 

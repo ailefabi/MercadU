@@ -1,5 +1,6 @@
 package ucr.ac.cr.MercadU.Controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class ProductoController {
     private ProductoService productoService;
 
     @PostMapping
-    public ResponseEntity<Producto> crear(@RequestBody Producto producto) {
+    public ResponseEntity<Producto> crear(@Valid @RequestBody Producto producto) {
         Producto creado = productoService.crear(producto);
         return ResponseEntity.ok(creado);
     }
@@ -37,8 +38,7 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id,
-                                               @RequestBody Producto producto) {
+    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @Valid @RequestBody Producto producto) {
         Producto actualizado = productoService.actualizar(id, producto);
         return ResponseEntity.ok(actualizado);
     }

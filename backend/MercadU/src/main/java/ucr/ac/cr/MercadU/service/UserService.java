@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.model.User;
 import ucr.ac.cr.MercadU.model.dto.LoginUserDTO;
-import ucr.ac.cr.MercadU.model.dto.UserDTO;
+import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
+import ucr.ac.cr.MercadU.model.dto.UserRespondDTO;
 import ucr.ac.cr.MercadU.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -14,84 +15,77 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-
-
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTO saveUser(User user){
-        Optional<User> opt = this.userRepository.findById(user.getId());
-        if (opt.isPresent()){
-            return null;
-        }
-        return this.convertUserDTO(this.userRepository.save(user));
+    public UserRespondDTO saveUser(UserRequestDTO request) {
+        Optional<User> opt = this.userRepository.findById(request.getId());
+        if (opt.isPresent()) return null;
+
+        User user = this.convertToEntity(request);
+        return this.convertToRespondDTO(this.userRepository.save(user));
     }
 
-    public List<UserDTO> findAll(){
+    public List<UserRespondDTO> findAll() {
         return this.convertListDTO(this.userRepository.findAll());
     }
 
-    public UserDTO findByIDUser(Integer id){
+    public UserRespondDTO findByIDUser(Integer id) {
         Optional<User> optional = this.userRepository.findById(id);
-        if (optional.isPresent()){
-            return this.convertUserDTO(optional.get());
-        }
+        if (optional.isPresent()) return this.convertToRespondDTO(optional.get());
         return null;
     }
 
-    public void deleteUser(Integer id){
+    public void deleteUser(Integer id) {
         this.userRepository.deleteById(id);
     }
 
-    public UserDTO editUser(Integer id, User userEdit){
+    public UserRespondDTO editUser(Integer id, UserRequestDTO request) {
         Optional<User> userOp = this.userRepository.findById(id);
-        if (userOp.isPresent()){
+        if (userOp.isPresent()) {
             User user = userOp.get();
-            user = userEdit;
-            return this.convertUserDTO(this.userRepository.save(user));
+            user.setName(request.getName());
+            user.setEmailUcr(request.getEmailUcr());
+            return this.convertToRespondDTO(this.userRepository.save(user));
         }
         return null;
     }
 
-    public UserDTO convertUserDTO(User user){
-        UserDTO dto = new UserDTO();
+    public UserRespondDTO convertToRespondDTO(User user) {
+        UserRespondDTO dto = new UserRespondDTO();
         dto.setId(user.getId());
-        dto.setEmailUcr(user.getEmailUcr());
         dto.setName(user.getName());
+        dto.setEmailUcr(user.getEmailUcr());
+        dto.setRol(user.getRol());
         return dto;
     }
 
-    public List<UserDTO> convertListDTO(List<User> listUser){
-        List<UserDTO> listDTO = new ArrayList<>();
-        for (User user : listUser){
-            listDTO.add(this.convertUserDTO(user));
+    public User convertToEntity(UserRequestDTO request) {
+        User user = new User();
+        user.setId(request.getId());
+        user.setName(request.getName());
+        user.setEmailUcr(request.getEmailUcr());
+        return user;
+    }
+
+    public List<UserRespondDTO> convertListDTO(List<User> listUser) {
+        List<UserRespondDTO> listDTO = new ArrayList<>();
+        for (User user : listUser) {
+            listDTO.add(this.convertToRespondDTO(user));
         }
         return listDTO;
     }
 
-    public List<UserDTO> findByName(String name){
+    public List<UserRespondDTO> findByName(String name) {
         return this.convertListDTO(this.userRepository.findByName(name));
     }
 
-    public List<User> findAllByOrderByNameAsc(){
+    public List<User> findAllByOrderByNameAsc() {
         return this.userRepository.findAllByOrderByNameAsc();
     }
 
-    public User findByEmailAndPassword(String emailUcr, String password){
-        return this.userRepository.findByEmailAndPassword(emailUcr, password);
-    }
-
-    public LoginUserDTO convertLoginUserDTO(User user){
-        LoginUserDTO dto = new LoginUserDTO();
-        dto.setEmail(user.getEmailUcr());
-        dto.setPassword(user.getPassword());
-        return dto;
-    }
-
-    public User login(String email, String password){
+    public User login(String email, String password) {
         return this.userRepository.loginDTO(email, password);
     }
-
-
-
 }
+

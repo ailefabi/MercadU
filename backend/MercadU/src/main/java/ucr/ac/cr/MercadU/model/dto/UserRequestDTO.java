@@ -1,19 +1,19 @@
 package ucr.ac.cr.MercadU.model.dto;
 
-public class UserDTO {
+public class UserRequestDTO {
 
     private Integer id;
     private String name;
     private String emailUcr;
 
 
-    public UserDTO(Integer id, String name, String emailUcr) {
+    public UserRequestDTO(Integer id, String name, String emailUcr) {
         this.id = id;
         this.name = name;
         this.emailUcr = emailUcr;
     }
 
-    public UserDTO() {
+    public UserRequestDTO() {
 
     }
 

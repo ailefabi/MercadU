@@ -1,25 +1,49 @@
 package ucr.ac.cr.MercadU.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "tb_resenas")
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_resena")
     private Integer idResena;
+
+    @Column(name = "comentario", nullable = false, length = 500)
+    @NotBlank(message = "El comentario no puede estar vacio.")
+    @Size(max = 500, message = "El comentario no puede exceder los 500 caracteres.")
     private String comentario;
-    private Integer calicacion;
+
+    @Column(name = "calificacion", nullable = false)
+    @NotNull(message = "La calificacion es obligatoria.")
+    @Min(value = 1, message = "La calificacion minima es 1.")
+    @Max(value = 5, message = "La calificacion maxima es 5.")
+    private Integer calificacion;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_publicacion", nullable = false, updatable = false)
     private Date fechaPublicacion;
+
+    //Relacion con User
+    /*
+    @ManyToOne(fetch = FetchType.LAZY) //Use Lazy xq supuestamente es menor carga ala memoria y solo carga lo necesario en el momento
+    @JoinColumn(name = "id_usuario", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //Esto es para que no genere un error el FetchType.Lazy
+    private User user;
+    */
 
     public Review() {
     }
 
-    public Review(Integer idResena, String comentario, Integer calicacion, Date fechaPublicacion) {
+    public Review(Integer idResena, String comentario, Integer calificacion, Date fechaPublicacion) {
         this.idResena = idResena;
         this.comentario = comentario;
-        this.calicacion = calicacion;
+        this.calificacion = calificacion;
         this.fechaPublicacion = fechaPublicacion;
     }
 
@@ -39,12 +63,12 @@ public class Review {
         this.comentario = comentario;
     }
 
-    public Integer getCalicacion() {
-        return calicacion;
+    public Integer getCalificacion() {
+        return calificacion;
     }
 
-    public void setCalicacion(Integer calicacion) {
-        this.calicacion = calicacion;
+    public void setCalificacion(Integer calificacion) {
+        this.calificacion = calificacion;
     }
 
     public Date getFechaPublicacion() {
@@ -60,7 +84,7 @@ public class Review {
         return "review{" +
                 "idResena=" + idResena +
                 ", comentario='" + comentario + '\'' +
-                ", calicacion=" + calicacion +
+                ", calificacion=" + calificacion +
                 ", fechaPublicacion=" + fechaPublicacion +
                 '}';
     }

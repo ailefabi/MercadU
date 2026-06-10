@@ -6,15 +6,15 @@ import ucr.ac.cr.MercadU.model.Review;
 
 import java.util.List;
 
-public interface Reviewrepository extends JpaRepository<Review, Integer> {
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
     //Buscar usuario especifico
-    List<Review> findByUserId(Integer userId);
+    //List<Review> findByUserId(Integer userId);
 
     //Obtener comentarios por orden reciente a antiguo
-    List<Review> findByOrderByfechaPublicacionDesc();
+    List<Review> findByOrderByFechaPublicacionDesc();
 
     //Filtrar comentarios por calificacion especifica
-    List<Review> findByCalificaion(Integer calificacion);
+    List<Review> findByCalificacion(Integer calificacion);
 
     //Calcular el promedio de calificacion
     @Query("SELECT AVG(r.calificacion) FROM Review r")

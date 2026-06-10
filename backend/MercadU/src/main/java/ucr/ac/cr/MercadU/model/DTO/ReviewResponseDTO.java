@@ -1,33 +1,25 @@
 package ucr.ac.cr.MercadU.model.DTO;
 
-import jakarta.validation.constraints.*;
-
 import java.util.Date;
 
-public class ReviewDTO {
+public class ReviewResponseDTO {
     private Integer idResena;
-
-    @NotBlank(message = "El comentario no puede estar vacío.")
     private String comentario;
-
-    @Min(1) @Max(5)
     private Integer calificacion;
     private Date fechaPublicacion;
 
-    // Solo exponemos estos datos del usuario
-    private Integer idUsuario;
-    private String nombreUsuario;
+    //Datos del usuario
+    //private Integer idUsuario;
+    //private String nombreUsuario;
 
-    public ReviewDTO() {
+    public ReviewResponseDTO() {
     }
 
-    public ReviewDTO(Integer idResena, String comentario, Integer calificacion, Date fechaPublicacion, Integer idUsuario, String nombreUsuario) {
+    public ReviewResponseDTO(Integer idResena, String comentario, Integer calificacion, Date fechaPublicacion) {
         this.idResena = idResena;
         this.comentario = comentario;
         this.calificacion = calificacion;
         this.fechaPublicacion = fechaPublicacion;
-        this.idUsuario = idUsuario;
-        this.nombreUsuario = nombreUsuario;
     }
 
     public Integer getIdResena() {
@@ -60,21 +52,5 @@ public class ReviewDTO {
 
     public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
-    }
-
-    public Integer getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
     }
 }

@@ -1,11 +1,26 @@
 package ucr.ac.cr.MercadU.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "tb_usuarios")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String emailUcr;
+
+    @Column(name = "password", nullable = false, length = 150)
     private String password;
+
+    @Column(name = "rol", nullable = false, length = 20)
     private String rol;
 
     public User() {

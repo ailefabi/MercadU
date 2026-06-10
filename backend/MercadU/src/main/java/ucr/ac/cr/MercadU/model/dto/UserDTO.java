@@ -37,4 +37,7 @@ public class UserDTO {
         return emailUcr;
     }
 
+    public void setEmailUcr(String emailUcr) {
+        this.emailUcr = emailUcr;
+    }
 }

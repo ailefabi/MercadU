@@ -2,8 +2,7 @@ package ucr.ac.cr.MercadU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ucr.ac.cr.MercadU.model.User;
-import ucr.ac.cr.MercadU.model.dto.LoginUserDTO;
+import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.UserRespondDTO;
 import ucr.ac.cr.MercadU.repository.UserRepository;

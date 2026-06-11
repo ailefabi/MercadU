@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ucr.ac.cr.MercadU.model.User;
+import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.LoginUserDTO;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.UserRespondDTO;

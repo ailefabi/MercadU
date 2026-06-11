@@ -1,4 +1,4 @@
-package ucr.ac.cr.MercadU.model;
+package ucr.ac.cr.MercadU.model.entity;
 
 import jakarta.persistence.*;
 

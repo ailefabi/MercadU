@@ -1,0 +1,31 @@
+**Pruebas de Postman(MercadU/Review)**
+
+//POST
+{
+  "comentario": "Excelente plataforma para comprar materiales de estudio dentro del campus, muy segura.",
+  "calificacion": 5
+}
+
+//POST error forzado
+{
+  "comentario": "Intento de hackear las estrellas.",
+  "calificacion": 6
+}
+
+//POST error forzado
+{
+  "comentario": "   ",
+  "calificacion": 3
+}
+
+//GET Obtener Todas las Reseñas
+http://localhost:8080/api/review
+
+//GET Obtener el Promedio de Calificación
+http://localhost:8080/api/review/promedio
+
+//GET Filtrar por Calificación
+http://localhost:8080/api/review/calificacion/5
+
+//GET Buscar por Palabra Clave
+http://localhost:8080/api/review/buscar?palabraClave=campus

@@ -1,0 +1,44 @@
+// POST - Crear producto
+{
+  "nombre": "Cuaderno universitario",
+  "descripcion": "Cuaderno de 100 hojas ideal para clases en la universidad",
+  "precio": 1500,
+  "stock": 20,
+  "disponible": true
+}
+
+// POST - Error de validación (nombre vacío)
+{
+  "nombre": "",
+  "descripcion": "Producto sin nombre para prueba de error",
+  "precio": 1500,
+  "stock": 10,
+  "disponible": true
+}
+
+// POST - Error de validación (precio negativo)
+{
+  "nombre": "Lapiz",
+  "descripcion": "Precio inválido para prueba",
+  "precio": -10,
+  "stock": 5,
+  "disponible": true
+}
+
+// GET - Obtener todos los productos
+http://localhost:8080/api/productos
+
+// GET - Obtener producto por ID
+http://localhost:8080/api/productos/1
+
+// PUT - Actualizar producto
+{
+  "nombre": "Cuaderno actualizado",
+  "descripcion": "Versión mejorada del cuaderno universitario",
+  "precio": 2000,
+  "stock": 15,
+  "disponible": true
+}
+
+// DELETE - Eliminar producto
+http://localhost:8080/api/productos/1

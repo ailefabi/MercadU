@@ -2,7 +2,7 @@ package ucr.ac.cr.MercadU.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ucr.ac.cr.MercadU.model.Review;
+import ucr.ac.cr.MercadU.model.entity.Review;
 
 import java.util.List;
 

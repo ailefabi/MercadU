@@ -2,9 +2,9 @@ package ucr.ac.cr.MercadU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ucr.ac.cr.MercadU.model.DTO.ReviewRequestDTO;
-import ucr.ac.cr.MercadU.model.DTO.ReviewResponseDTO;
-import ucr.ac.cr.MercadU.model.Review;
+import ucr.ac.cr.MercadU.model.dto.ReviewRequestDTO;
+import ucr.ac.cr.MercadU.model.dto.ReviewResponseDTO;
+import ucr.ac.cr.MercadU.model.entity.Review;
 import ucr.ac.cr.MercadU.repository.ReviewRepository;
 
 import java.util.ArrayList;

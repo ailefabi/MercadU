@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ucr.ac.cr.MercadU.model.DTO.ReviewRequestDTO;
-import ucr.ac.cr.MercadU.model.DTO.ReviewResponseDTO;
+import ucr.ac.cr.MercadU.model.dto.ReviewRequestDTO;
+import ucr.ac.cr.MercadU.model.dto.ReviewResponseDTO;
 import ucr.ac.cr.MercadU.service.ReviewService;
 
 import java.util.List;

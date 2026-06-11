@@ -1,4 +1,4 @@
-package ucr.ac.cr.MercadU.model.DTO;
+package ucr.ac.cr.MercadU.model.dto;
 
 import jakarta.validation.constraints.*;
 

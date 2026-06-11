@@ -1,6 +1,5 @@
-package ucr.ac.cr.MercadU.model;
+package ucr.ac.cr.MercadU.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 

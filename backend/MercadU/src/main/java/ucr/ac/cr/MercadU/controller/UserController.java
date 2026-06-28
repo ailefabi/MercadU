@@ -36,37 +36,11 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> saveUser(@Validated @RequestBody UserRequestDTO request, BindingResult result) {
-        if (result.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : result.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(errors);
-        }
-        UserResponseDTO dto = this.userService.saveUser(request);
-        if (dto == null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("El usuario con el ID " + request.getId() + " ya se encuentra registrado!");
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody UserRequestDTO request) {
         UserResponseDTO dto = this.userService.editUser(id, request);
         if (dto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(dto);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginUserDTO dtologin) {
-        User user = this.userService.login(dtologin.getEmail(), dtologin.getPassword());
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
-        }
-        return ResponseEntity.ok("Bienvenido " + user.getName());
     }
 
     @DeleteMapping("/{id}")

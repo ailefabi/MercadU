@@ -1,6 +1,7 @@
 package ucr.ac.cr.MercadU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
@@ -17,11 +18,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserResponseDTO saveUser(UserRequestDTO request) {
-        if (userRepository.findByEmailUcr(request.getEmailUcr()).isPresent()) return null;
+    private final PasswordEncoder passwordEncoder;
 
-        User user = this.convertToEntity(request);
-        return this.convertToRespondDTO(this.userRepository.save(user));
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserResponseDTO> findAll() {
@@ -44,6 +45,11 @@ public class UserService {
             User user = userOp.get();
             user.setName(request.getName());
             user.setEmailUcr(request.getEmailUcr());
+
+            if (request.getPassword() != null && !request.getPassword().isBlank()) {
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
+
             return this.convertToRespondDTO(this.userRepository.save(user));
         }
         return null;
@@ -84,8 +90,5 @@ public class UserService {
         return this.userRepository.findAllByOrderByNameAsc();
     }
 
-    public User login(String email, String password) {
-        return this.userRepository.loginUserDTO(email, password);
-    }
 }
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.LoginUserDTO;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
-import ucr.ac.cr.MercadU.model.dto.UserRespondDTO;
+import ucr.ac.cr.MercadU.model.dto.UserResponseDTO;
 import ucr.ac.cr.MercadU.service.UserService;
 
 import java.util.HashMap;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserRespondDTO> findById(@PathVariable Integer id) {
-        UserRespondDTO dto = userService.findByIDUser(id);
+    public ResponseEntity<UserResponseDTO> findById(@PathVariable Integer id) {
+        UserResponseDTO dto = userService.findByIDUser(id);
         if (dto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(dto);
     }
@@ -45,7 +45,7 @@ public class UserController {
             }
             return ResponseEntity.badRequest().body(errors);
         }
-        UserRespondDTO dto = this.userService.saveUser(request);
+        UserResponseDTO dto = this.userService.saveUser(request);
         if (dto == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("El usuario con el ID " + request.getId() + " ya se encuentra registrado!");
@@ -55,7 +55,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editUser(@PathVariable Integer id, @RequestBody UserRequestDTO request) {
-        UserRespondDTO dto = this.userService.editUser(id, request);
+        UserResponseDTO dto = this.userService.editUser(id, request);
         if (dto == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(dto);
     }

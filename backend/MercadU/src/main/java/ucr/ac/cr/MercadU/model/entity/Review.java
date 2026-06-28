@@ -6,27 +6,27 @@ import jakarta.validation.constraints.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "tb_resenas")
+@Table(name = "tb_review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_resena")
-    private Integer idResena;
+    @Column(name = "idReview")
+    private Integer idReview;
 
-    @Column(name = "comentario", nullable = false, length = 500)
+    @Column(name = "comment", nullable = false, length = 500)
     @NotBlank(message = "El comentario no puede estar vacio.")
     @Size(max = 500, message = "El comentario no puede exceder los 500 caracteres.")
-    private String comentario;
+    private String comment;
 
-    @Column(name = "calificacion", nullable = false)
+    @Column(name = "rating", nullable = false)
     @NotNull(message = "La calificacion es obligatoria.")
     @Min(value = 1, message = "La calificacion minima es 1.")
     @Max(value = 5, message = "La calificacion maxima es 5.")
-    private Integer calificacion;
+    private Integer rating;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_publicacion", nullable = false, updatable = false)
-    private Date fechaPublicacion;
+    @Column(name = "publicationDate", nullable = false, updatable = false)
+    private Date publicationDate;
 
     //Relacion con User
     /*
@@ -39,52 +39,52 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer idResena, String comentario, Integer calificacion, Date fechaPublicacion) {
-        this.idResena = idResena;
-        this.comentario = comentario;
-        this.calificacion = calificacion;
-        this.fechaPublicacion = fechaPublicacion;
+    public Review(Integer idReview, String comment, Integer rating, Date publicationDate) {
+        this.idReview = idReview;
+        this.comment = comment;
+        this.rating = rating;
+        this.publicationDate = publicationDate;
     }
 
-    public Integer getIdResena() {
-        return idResena;
+    public Integer getIdReview() {
+        return idReview;
     }
 
-    public void setIdResena(Integer idResena) {
-        this.idResena = idResena;
+    public void setIdReview(Integer idReview) {
+        this.idReview = idReview;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Integer getCalificacion() {
-        return calificacion;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
-    public Date getFechaPublicacion() {
-        return fechaPublicacion;
+    public Date getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setFechaPublicacion(Date fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
+    public void setPublicationDate(Date publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     @Override
     public String toString() {
         return "review{" +
-                "idResena=" + idResena +
-                ", comentario='" + comentario + '\'' +
-                ", calificacion=" + calificacion +
-                ", fechaPublicacion=" + fechaPublicacion +
+                "idReview=" + idReview +
+                ", comment='" + comment + '\'' +
+                ", rating=" + rating +
+                ", publicationDate=" + publicationDate +
                 '}';
     }
 }

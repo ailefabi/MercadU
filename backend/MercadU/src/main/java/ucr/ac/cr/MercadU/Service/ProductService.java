@@ -18,53 +18,53 @@ public class ProductService {
     private ProductRepository productRepository;
 
     // Guardar un producto nuevo
-    public ProductResponseDTO guardar(ProductRequestDTO requestDTO) {
-        Product producto = new Product();
-        producto.setNombre(requestDTO.getNombre());
-        producto.setDescripcion(requestDTO.getDescripcion());
-        producto.setPrecio(requestDTO.getPrecio());
-        producto.setDisponible(requestDTO.isDisponible());
+    public ProductResponseDTO saveProduct(ProductRequestDTO requestDTO) {
+        Product product = new Product();
+        product.setName(requestDTO.getName());
+        product.setDescription(requestDTO.getDescription());
+        product.setPrice(requestDTO.getPrice());
+        product.setAvailable(requestDTO.isAvailable());
 
-        Product productoGuardado = this.productRepository.save(producto);
-        return this.convertirADTO(productoGuardado);
+        Product productS = this.productRepository.save(product);
+        return this.convertToResponseDTO(productS);
     }
 
     // Obtener todos los productos
-    public List<ProductResponseDTO> obtenerTodos() {
-        List<Product> listaProductos = this.productRepository.findAll();
-        return this.convertirListaDTO(listaProductos);
+    public List<ProductResponseDTO> findAllProducts() {
+        List<Product> listProductos = this.productRepository.findAll();
+        return this.convertListDTO(listProductos);
     }
 
     // Obtener por ID
-    public ProductResponseDTO obtenerPorId(Integer id) {
+    public ProductResponseDTO findByID(Integer id) {
         Optional<Product> optionalProduct = this.productRepository.findById(id);
         if (optionalProduct.isPresent()) {
-            return this.convertirADTO(optionalProduct.get());
+            return this.convertToResponseDTO(optionalProduct.get());
         }
         return null;
     }
 
     // Obtener sólo los disponibles
-    public List<ProductResponseDTO> obtenerDisponibles() {
-        List<Product> listaProductos = this.productRepository.findByDisponibleTrue();
-        return this.convertirListaDTO(listaProductos);
+    public List<ProductResponseDTO> findByAvailable() {
+        List<Product> listaProductos = this.productRepository.findByAvailableTrue();
+        return this.convertListDTO(listaProductos);
     }
 
     //Zona DTO
-    private ProductResponseDTO convertirADTO(Product producto) {
-        ProductResponseDTO dto = new ProductResponseDTO();
-        dto.setIdProducto(producto.getIdProducto());
-        dto.setNombre(producto.getNombre());
-        dto.setDescripcion(producto.getDescripcion());
-        dto.setPrecio(producto.getPrecio());
-        dto.setDisponible(producto.isDisponible());
-        return dto;
+    private ProductResponseDTO convertToResponseDTO(Product product) {
+        return new ProductResponseDTO(
+                product.getIdProduct(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.isAvailable()
+        );
     }
 
-    private List<ProductResponseDTO> convertirListaDTO(List<Product> listaProductos) {
+    private List<ProductResponseDTO> convertListDTO(List<Product> productList) {
         List<ProductResponseDTO> listaDTO = new ArrayList<>();
-        for (Product producto : listaProductos) {
-            listaDTO.add(this.convertirADTO(producto));
+        for (Product producto : productList) {
+            listaDTO.add(this.convertToResponseDTO(producto));
         }
         return listaDTO;
     }

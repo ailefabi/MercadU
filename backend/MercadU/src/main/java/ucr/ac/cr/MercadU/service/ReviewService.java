@@ -19,33 +19,33 @@ public class ReviewService {
 
     // Guardar una nueva review
     // Recibe un RequestDTO y devuelve un ResponseDTO
-    public ReviewResponseDTO guardarReview(ReviewRequestDTO dto) {
+    public ReviewResponseDTO saveReview(ReviewRequestDTO dto) {
         Review review = new Review();
-        review.setComentario(dto.getComentario());
-        review.setCalificacion(dto.getCalificacion());
-        review.setFechaPublicacion(new java.util.Date());
+        review.setComment(dto.getComment());
+        review.setRating(dto.getRating());
+        review.setPublicationDate(new java.util.Date());
 
-        Review reviewGuardada = this.reviewRepository.save(review);
-        return this.convertirToResponseDTO(reviewGuardada);
+        Review reviewS = this.reviewRepository.save(review);
+        return this.convertToResponseDTO(reviewS);
     }
 
     // Obtener todas las reviews
-    public List<ReviewResponseDTO> obtenerTodas() {
-        List<Review> listaReviews = this.reviewRepository.findAll();
-        return this.convertirListaDTO(listaReviews);
+    public List<ReviewResponseDTO> findAllReviews() {
+        List<Review> listReviews = this.reviewRepository.findAll();
+        return this.convertListDTO(listReviews);
     }
 
     // Obtener una review por su ID
-    public ReviewResponseDTO obtenerPorId(Integer id) {
+    public ReviewResponseDTO findByID(Integer id) {
         Optional<Review> optional = this.reviewRepository.findById(id);
         if (optional.isPresent()) {
-            return this.convertirToResponseDTO(optional.get());
+            return this.convertToResponseDTO(optional.get());
         }
         return null;
     }
 
     // Eliminar una review por su ID
-    public boolean eliminarPorId(Integer id) {
+    public boolean deleteByID(Integer id) {
         if (this.reviewRepository.existsById(id)) {
             this.reviewRepository.deleteById(id);
             return true;
@@ -54,8 +54,8 @@ public class ReviewService {
     }
 
     // Obtener el promedio de calificación de las reviews
-    public Double obtenerPromedioCalificacion() {
-        Double promedio = this.reviewRepository.getPromedioCalificacionGeneral();
+    public Double findAvgRating() {
+        Double promedio = this.reviewRepository.getAvgRating();
         if (promedio != null) {
             return promedio;
         }
@@ -63,31 +63,31 @@ public class ReviewService {
     }
 
     // Filtrar comentarios por una calificación específica
-    public List<ReviewResponseDTO> obtenerPorCalificacion(Integer calificacion) {
-        List<Review> lista = this.reviewRepository.findByCalificacion(calificacion);
-        return this.convertirListaDTO(lista);
+    public List<ReviewResponseDTO> findByRating(Integer rating) {
+        List<Review> lista = this.reviewRepository.findByRating(rating);
+        return this.convertListDTO(lista);
     }
 
     // Buscar comentarios que contengan palabras clave
-    public List<ReviewResponseDTO> buscarPorPalabraClave(String palabraClave) {
-        List<Review> lista = this.reviewRepository.findByComentarioContainingIgnoreCase(palabraClave);
-        return this.convertirListaDTO(lista);
+    public List<ReviewResponseDTO> findByKeyword(String keyword) {
+        List<Review> lista = this.reviewRepository.findByCommentContainingIgnoreCase(keyword);
+        return this.convertListDTO(lista);
     }
 
     //Zona DTO
-    public ReviewResponseDTO convertirToResponseDTO(Review review) {
-        ReviewResponseDTO dto = new ReviewResponseDTO();
-        dto.setIdResena(review.getIdResena());
-        dto.setComentario(review.getComentario());
-        dto.setCalificacion(review.getCalificacion());
-        dto.setFechaPublicacion(review.getFechaPublicacion());
-        return dto;
+    public ReviewResponseDTO convertToResponseDTO(Review review) {
+        return new ReviewResponseDTO(
+          review.getIdReview(),
+          review.getComment(),
+          review.getRating(),
+          review.getPublicationDate()
+        );
     }
 
-    public List<ReviewResponseDTO> convertirListaDTO(List<Review> listaReview) {
+    public List<ReviewResponseDTO> convertListDTO(List<Review> listaReview) {
         List<ReviewResponseDTO> listaDTO = new ArrayList<>();
         for (Review review : listaReview) {
-            listaDTO.add(this.convertirToResponseDTO(review));
+            listaDTO.add(this.convertToResponseDTO(review));
         }
         return listaDTO;
     }

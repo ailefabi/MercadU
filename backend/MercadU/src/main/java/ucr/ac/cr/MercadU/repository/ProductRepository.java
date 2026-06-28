@@ -9,10 +9,10 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     //Metodo  para buscar solo productos disponibles
-    List<Product> findByDisponibleTrue();
+    List<Product> findByAvailableTrue();
 
     //Metodo para buscar productos más baratos o iguales a un precio
-    List<Product> findByPrecioLessThanEqual(int precioMaximo);
+    List<Product> findByPriceLessThanEqual(Integer priceMax);
 
 
     // Dejado comentado hasta que implementen Business

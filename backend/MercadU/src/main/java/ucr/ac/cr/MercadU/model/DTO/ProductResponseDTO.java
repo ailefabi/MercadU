@@ -1,60 +1,37 @@
 package ucr.ac.cr.MercadU.model.dto;
 
 public class ProductResponseDTO {
-    private Integer idProducto;
-    private String nombre;
-    private String descripcion;
-    private int precio;
-    private boolean disponible;
+    private Integer idProduct;
+    private String name;
+    private String description;
+    private Integer price;
+    private boolean available;
 
-    public ProductResponseDTO() {
+    public ProductResponseDTO(Integer idProduct, String name, String description, int price, boolean available) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.available = available;
     }
 
-    public ProductResponseDTO(Integer idProducto, String nombre, String descripcion, int precio, boolean disponible) {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.disponible = disponible;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public String getName() {
+        return name;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public String getDescription() {
+        return description;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public boolean isAvailable() {
+        return available;
     }
 }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
-import ucr.ac.cr.MercadU.model.dto.UserRespondDTO;
+import ucr.ac.cr.MercadU.model.dto.UserResponseDTO;
 import ucr.ac.cr.MercadU.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -17,18 +17,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserRespondDTO saveUser(UserRequestDTO request) {
+    public UserResponseDTO saveUser(UserRequestDTO request) {
         if (userRepository.findByEmailUcr(request.getEmailUcr()).isPresent()) return null;
 
         User user = this.convertToEntity(request);
         return this.convertToRespondDTO(this.userRepository.save(user));
     }
 
-    public List<UserRespondDTO> findAll() {
+    public List<UserResponseDTO> findAll() {
         return this.convertListDTO(this.userRepository.findAll());
     }
 
-    public UserRespondDTO findByIDUser(Integer id) {
+    public UserResponseDTO findByIDUser(Integer id) {
         Optional<User> optional = this.userRepository.findById(id);
         if (optional.isPresent()) return this.convertToRespondDTO(optional.get());
         return null;
@@ -38,7 +38,7 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public UserRespondDTO editUser(Integer id, UserRequestDTO request) {
+    public UserResponseDTO editUser(Integer id, UserRequestDTO request) {
         Optional<User> userOp = this.userRepository.findById(id);
         if (userOp.isPresent()) {
             User user = userOp.get();
@@ -49,13 +49,13 @@ public class UserService {
         return null;
     }
 
-    public UserRespondDTO convertToRespondDTO(User user) {
-        UserRespondDTO dto = new UserRespondDTO();
-        dto.setId(user.getId());
-        dto.setName(user.getName());
-        dto.setEmailUcr(user.getEmailUcr());
-        dto.setRol(user.getRol());
-        return dto;
+    public UserResponseDTO convertToRespondDTO(User user) {
+        return new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmailUcr(),
+                user.getRol()
+        );
     }
 
     public User convertToEntity(UserRequestDTO request) {
@@ -68,15 +68,15 @@ public class UserService {
         return user;
     }
 
-    public List<UserRespondDTO> convertListDTO(List<User> listUser) {
-        List<UserRespondDTO> listDTO = new ArrayList<>();
+    public List<UserResponseDTO> convertListDTO(List<User> listUser) {
+        List<UserResponseDTO> listDTO = new ArrayList<>();
         for (User user : listUser) {
             listDTO.add(this.convertToRespondDTO(user));
         }
         return listDTO;
     }
 
-    public List<UserRespondDTO> findByName(String name) {
+    public List<UserResponseDTO> findByName(String name) {
         return this.convertListDTO(this.userRepository.findByName(name));
     }
 

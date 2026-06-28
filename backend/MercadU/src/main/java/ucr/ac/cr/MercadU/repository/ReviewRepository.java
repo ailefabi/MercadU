@@ -11,15 +11,15 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     //List<Review> findByUserId(Integer userId);
 
     //Obtener comentarios por orden reciente a antiguo
-    List<Review> findByOrderByFechaPublicacionDesc();
+    List<Review> findAllByOrderByPublicationDateDesc();
 
     //Filtrar comentarios por calificacion especifica
-    List<Review> findByCalificacion(Integer calificacion);
+    List<Review> findByRating(Integer Rating);
 
     //Calcular el promedio de calificacion
-    @Query("SELECT AVG(r.calificacion) FROM Review r")
-    Double getPromedioCalificacionGeneral();
+    @Query("SELECT AVG(r.rating) FROM Review r")
+    Double getAvgRating();
 
     //Buscar comentarios con palabras clave
-    List<Review> findByComentarioContainingIgnoreCase(String palabraClave);
+    List<Review> findByCommentContainingIgnoreCase(String keyword);
 }

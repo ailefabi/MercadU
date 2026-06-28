@@ -4,30 +4,30 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
-@Table(name = "tb_productos")
+@Table(name = "tb_product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_producto")
-    private Integer idProducto;
+    @Column(name = "idProduct")
+    private Integer idProduct;
 
     @NotBlank(message = "El nombre del producto no puede estar vacío")
     @Size(max = 100, message = "El nombre no puede superar los 100 caracteres")
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "name")
+    private String name;
 
     @NotBlank(message = "La descripción no puede estar vacía")
     @Size(max = 500, message = "La descripción no puede superar los 500 caracteres")
-    @Column(name = "descripcion")
-    private String descripcion;
+    @Column(name = "description")
+    private String description;
 
     @Min(value = 0, message = "El precio no puede ser negativo")
-    @Column(name = "precio")
-    private int precio;
+    @Column(name = "price")
+    private Integer price;
 
-    @Column(name = "disponible")
-    private boolean disponible;
+    @Column(name = "available")
+    private boolean available;
 
     // Relación comentada temporalmente hasta que implementen Business
     /*
@@ -39,50 +39,51 @@ public class Product {
     public Product() {
     }
 
-    public Product(boolean disponible, int precio, String descripcion, String nombre) {
-        this.disponible = disponible;
-        this.precio = precio;
-        this.descripcion = descripcion;
-        this.nombre = nombre;
+    public Product(Integer idProduct, String name, String description, Integer price, boolean available) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.available = available;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public void setIdProduct(Integer idProduct) {
+        this.idProduct = idProduct;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPrecio() {
-        return precio;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

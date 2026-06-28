@@ -4,47 +4,48 @@ import jakarta.validation.constraints.*;
 
 public class ProductRequestDTO {
     @NotBlank(message = "El nombre es obligatorio")
-    private String nombre;
+    private String name;
 
     @NotBlank(message = "La descripción es obligatoria")
-    private String descripcion;
+    private String description;
 
     @Min(value = 0, message = "El precio debe ser mayor o igual a 0")
-    private int precio;
-    private boolean disponible;
+    private Integer price;
+
+    private boolean available;
 
     public ProductRequestDTO() {
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getPrecio() {
-        return precio;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

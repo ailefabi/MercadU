@@ -6,12 +6,12 @@ public class ReviewRequestDTO {
 
     @NotBlank(message = "El comentario no puede estar vacío.")
     @Size(max = 500, message = "El comentario no puede exceder los 500 caracteres.")
-    private String comentario;
+    private String comment;
 
     @NotNull(message = "La calificación es obligatoria.")
     @Min(value = 1, message = "La calificación mínima es 1.")
     @Max(value = 5, message = "La calificación máxima es 5.")
-    private Integer calificacion;
+    private Integer rating;
 
     //Solo enviara el ID del estudiante
     //private Integer idUsuario;
@@ -19,24 +19,19 @@ public class ReviewRequestDTO {
     public ReviewRequestDTO() {
     }
 
-    public ReviewRequestDTO(String comentario, Integer calificacion) {
-        this.comentario = comentario;
-        this.calificacion = calificacion;
+    public String getComment() {
+        return comment;
     }
 
-    public String getComentario() {
-        return comentario;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public Integer getRating() {
+        return rating;
     }
 
-    public Integer getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

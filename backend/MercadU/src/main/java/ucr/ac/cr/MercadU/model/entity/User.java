@@ -3,7 +3,7 @@ package ucr.ac.cr.MercadU.model.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_usuarios")
+@Table(name = "tb_user")
 public class User {
 
     @Id

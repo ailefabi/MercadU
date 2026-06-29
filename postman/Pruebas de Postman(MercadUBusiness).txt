@@ -1,0 +1,21 @@
+POST http://localhost:8080/api/business/save
+
+
+{
+  "name": "soda el carmen",
+  "description": "restaurante, soda",
+  "category": "Comida"
+}
+
+GET http://localhost:8080/api/business/name/soda el carmen
+
+
+PUT http://localhost:8080/api/business/1
+
+{
+  "name": "Soda el Carmen",
+  "description": "Restaurante y bar",
+  "category": "Alimentos"
+}
+
+DELETE  http://localhost:8080/api/business/1

@@ -1,0 +1,29 @@
+**Pruebas de Postman(MercadU/Product)**
+
+//POST (http://localhost:8080/api/product)
+{
+  "nombre": "Chocolate Tarrazú de Exportación",
+  "descripcion": "Barra de chocolate artesanal 70% cacao, producido en la zona de los Santos.",
+  "precio": 2500,
+  "disponible": true
+}
+
+//POST probar error
+{
+  "nombre": "",
+  "descripcion": "Producto sin nombre",
+  "precio": -500,
+  "disponible": false
+}
+
+//GET Obtener Todos los Productos
+http://localhost:8080/api/product
+
+//GET Obtener un Producto por ID Existente
+http://localhost:8080/api/product/1
+
+//GET Obtener un Producto por ID que NO Existe ERROR
+http://localhost:8080/api/product/9999
+
+//GET Filtrar solo Productos Disponibles
+http://localhost:8080/api/product/disponibles

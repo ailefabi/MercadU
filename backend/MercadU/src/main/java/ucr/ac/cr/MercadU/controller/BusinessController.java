@@ -91,7 +91,14 @@ public class BusinessController {
         }
     }
 
-
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
+        BusinessResponseDTO business = this.service.findById(id);
+        if (business != null) {
+            return new ResponseEntity<>(business, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Negocio no encontrado", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

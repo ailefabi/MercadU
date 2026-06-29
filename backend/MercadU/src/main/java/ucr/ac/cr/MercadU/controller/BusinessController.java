@@ -12,10 +12,11 @@ import ucr.ac.cr.MercadU.model.dto.BusinessResponseDTO;
 import ucr.ac.cr.MercadU.service.BusinessService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/business")
+@RequestMapping("/api/business")
 @CrossOrigin(origins = "*")
 public class BusinessController {
 
@@ -54,11 +55,12 @@ public class BusinessController {
 
     @GetMapping("/name/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) {
-        if (this.service.findByName(name).isEmpty()) {
+        List<BusinessResponseDTO> resultado = this.service.findByName(name);
+
+        if (resultado.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Lista Vacia");
         }
-
-        return ResponseEntity.ok(this.service.findByName(name));
+        return ResponseEntity.ok(resultado);
     }
 
     @DeleteMapping("/{id}")

@@ -1,60 +1,56 @@
 package ucr.ac.cr.MercadU.model.dto;
 
 public class ProductResponseDTO {
-    private Integer idProducto;
-    private String nombre;
-    private String descripcion;
-    private int precio;
-    private boolean disponible;
+    private Integer idProduct;
+    private String name;
+    private String description;
+    private Integer price;
+    private boolean available;
 
-    public ProductResponseDTO() {
+    private Integer businessId;
+    private String businessName;
+    private String businessOwnerName;
+
+    public ProductResponseDTO(Integer idProduct, String name, String description, Integer price, boolean available, Integer businessId, String businessName, String businessOwnerName) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.available = available;
+        this.businessId = businessId;
+        this.businessName = businessName;
+        this.businessOwnerName = businessOwnerName;
     }
 
-    public ProductResponseDTO(Integer idProducto, String nombre, String descripcion, int precio, boolean disponible) {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.disponible = disponible;
+    public Integer getIdProduct() {
+        return idProduct;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public String getName() {
+        return name;
     }
 
-    public void setIdProducto(Integer idProducto) {
-        this.idProducto = idProducto;
+    public String getDescription() {
+        return description;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getPrice() {
+        return price;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public boolean isAvailable() {
+        return available;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public Integer getBusinessId() {
+        return businessId;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public String getBusinessName() {
+        return businessName;
     }
 
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public String getBusinessOwnerName() {
+        return businessOwnerName;
     }
 }

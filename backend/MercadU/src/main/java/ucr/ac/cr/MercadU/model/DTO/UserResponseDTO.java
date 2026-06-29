@@ -1,51 +1,41 @@
 package ucr.ac.cr.MercadU.model.dto;
 
-public class UserRespondDTO {
+import java.util.List;
+
+public class UserResponseDTO {
 
     private Integer id;
     private String name;
     private String emailUcr;
     private String rol;
 
-    public UserRespondDTO() {
-    }
+    private List<String> businessNames;
 
-    public UserRespondDTO(Integer id, String name, String emailUcr, String rol) {
+    public UserResponseDTO(Integer id, String name, String emailUcr, String rol, List<String> businessNames) {
         this.id = id;
         this.name = name;
         this.emailUcr = emailUcr;
         this.rol = rol;
+        this.businessNames = businessNames;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmailUcr() {
         return emailUcr;
     }
 
-    public void setEmailUcr(String emailUcr) {
-        this.emailUcr = emailUcr;
-    }
-
     public String getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public List<String> getBusinessNames() {
+        return businessNames;
     }
 }

@@ -9,16 +9,7 @@ public class UserRequestDTO {
     private String password;
 
 
-    public UserRequestDTO(Integer id, String name, String emailUcr, String rol, String password) {
-        this.id = id;
-        this.name = name;
-        this.emailUcr = emailUcr;
-        this.rol= rol;
-        this.password=password;
-    }
-
     public UserRequestDTO() {
-
     }
 
     public Integer getId() {

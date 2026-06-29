@@ -20,10 +20,10 @@ public class ProductController {
 
     //POST: Guardar producto
     @PostMapping
-    public ResponseEntity<?> crearProducto(@RequestBody ProductRequestDTO requestDTO) {
+    public ResponseEntity<?> saveProduct(@RequestBody ProductRequestDTO requestDTO) {
         try {
-            ProductResponseDTO nuevoProducto = this.productService.guardar(requestDTO);
-            return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
+            ProductResponseDTO newProduct = this.productService.saveProduct(requestDTO);
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Error al guardar el producto: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -31,27 +31,33 @@ public class ProductController {
 
     //GET: Obtener todos
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> obtenerTodosLosProductos() {
-        List<ProductResponseDTO> productos = this.productService.obtenerTodos();
-        return new ResponseEntity<>(productos, HttpStatus.OK);
+    public ResponseEntity<List<ProductResponseDTO>> findAllProduct() {
+        List<ProductResponseDTO> products = this.productService.findAllProducts();
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     // GET: Obtener por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerProductoPorId(@PathVariable Integer id) {
-        ProductResponseDTO producto = this.productService.obtenerPorId(id);
-        if (producto != null) {
-            return new ResponseEntity<>(producto, HttpStatus.OK);
+    public ResponseEntity<?> findByIDProduct(@PathVariable Integer id) {
+        ProductResponseDTO product = this.productService.findByID(id);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Producto no encontrado con el ID: " + id, HttpStatus.NOT_FOUND);
         }
     }
 
     // GET: Obtener sólo disponibles (/api/product/disponibles)
-    @GetMapping("/disponibles")
-    public ResponseEntity<List<ProductResponseDTO>> obtenerProductosDisponibles() {
-        List<ProductResponseDTO> disponibles = this.productService.obtenerDisponibles();
-        return new ResponseEntity<>(disponibles, HttpStatus.OK);
+    @GetMapping("/available")
+    public ResponseEntity<List<ProductResponseDTO>> findAvailable() {
+        List<ProductResponseDTO> available = this.productService.findByAvailable();
+        return new ResponseEntity<>(available, HttpStatus.OK);
+    }
+
+    //GET: Obtener por businessID
+    @GetMapping("/business/{businessId}")
+    public ResponseEntity<List<ProductResponseDTO>> findByBusiness(@PathVariable Integer businessId) {
+        return new ResponseEntity<>(this.productService.findByBusiness(businessId), HttpStatus.OK);
     }
 
 }

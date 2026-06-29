@@ -1,9 +1,12 @@
 package ucr.ac.cr.MercadU.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "tb_usuarios")
+@Table(name = "tb_user")
 public class User {
 
     @Id
@@ -22,6 +25,32 @@ public class User {
 
     @Column(name = "rol", nullable = false, length = 20)
     private String rol;
+
+    //Relacion entre tablas**********
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    private List<Business> listBusiness;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Review> listReview;
+
+    public List<Business> getListBusiness() {
+        return listBusiness;
+    }
+
+    public void setListBusiness(List<Business> listBusiness) {
+        this.listBusiness = listBusiness;
+    }
+
+    public List<Review> getListReview() {
+        return listReview;
+    }
+
+    public void setListReview(List<Review> listReview) {
+        this.listReview = listReview;
+    }
+    //*****************************
 
     public User() {
     }

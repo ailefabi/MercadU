@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BusinessRepository extends JpaRepository <Business, Integer>{
 
+    List<Business> findByOwnerId(Integer ownerId);
 
     List<Business> findByName(String name);
 }

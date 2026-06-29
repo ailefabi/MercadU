@@ -35,9 +35,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()        //Registro y login sin auth
-                        .requestMatchers("/api/user/**").hasRole("ADMIN")   //CRUD solo para admin
-                        .anyRequest().authenticated()                                //product, bussines, review ocupan login
+                        .requestMatchers(
+                                "/api/auth/**",
+                                "/api/business/**",
+                                "/api/product/**",
+                                "/api/review/**",
+                                "/api/user/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
 

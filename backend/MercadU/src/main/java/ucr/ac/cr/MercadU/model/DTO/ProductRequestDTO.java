@@ -14,6 +14,9 @@ public class ProductRequestDTO {
 
     private boolean available;
 
+    @NotNull(message = "El id del emprendimiento es obligatorio")
+    private Integer businessId;
+
     public ProductRequestDTO() {
     }
 
@@ -47,5 +50,13 @@ public class ProductRequestDTO {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
     }
 }

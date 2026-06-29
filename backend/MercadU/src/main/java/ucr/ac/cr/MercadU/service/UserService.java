@@ -3,9 +3,11 @@ package ucr.ac.cr.MercadU.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ucr.ac.cr.MercadU.model.entity.Business;
 import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.UserResponseDTO;
+import ucr.ac.cr.MercadU.repository.BusinessRepository;
 import ucr.ac.cr.MercadU.repository.UserRepository;
 
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BusinessRepository businessRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -56,11 +61,17 @@ public class UserService {
     }
 
     public UserResponseDTO convertToRespondDTO(User user) {
+        List<String> businessNames = this.businessRepository.findByOwnerId(user.getId())
+                .stream()
+                .map(Business::getName)
+                .toList();
+
         return new UserResponseDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmailUcr(),
-                user.getRol()
+                user.getRol(),
+                businessNames
         );
     }
 

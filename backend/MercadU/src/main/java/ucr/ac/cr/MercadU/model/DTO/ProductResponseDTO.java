@@ -7,12 +7,19 @@ public class ProductResponseDTO {
     private Integer price;
     private boolean available;
 
-    public ProductResponseDTO(Integer idProduct, String name, String description, int price, boolean available) {
+    private Integer businessId;
+    private String businessName;
+    private String businessOwnerName;
+
+    public ProductResponseDTO(Integer idProduct, String name, String description, Integer price, boolean available, Integer businessId, String businessName, String businessOwnerName) {
         this.idProduct = idProduct;
         this.name = name;
         this.description = description;
         this.price = price;
         this.available = available;
+        this.businessId = businessId;
+        this.businessName = businessName;
+        this.businessOwnerName = businessOwnerName;
     }
 
     public Integer getIdProduct() {
@@ -33,5 +40,17 @@ public class ProductResponseDTO {
 
     public boolean isAvailable() {
         return available;
+    }
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public String getBusinessOwnerName() {
+        return businessOwnerName;
     }
 }

@@ -5,6 +5,7 @@ public class BusinessRequestDTO {
     private String name;
     private String description;
     private String category;
+    private Integer ownerId;
 
     public BusinessRequestDTO() {
     }
@@ -31,5 +32,13 @@ public class BusinessRequestDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
     }
 }

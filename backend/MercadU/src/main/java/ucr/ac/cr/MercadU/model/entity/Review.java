@@ -1,5 +1,6 @@
 package ucr.ac.cr.MercadU.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -28,13 +29,31 @@ public class Review {
     @Column(name = "publicationDate", nullable = false, updatable = false)
     private Date publicationDate;
 
-    //Relacion con User
-    /*
-    @ManyToOne(fetch = FetchType.LAZY) //Use Lazy xq supuestamente es menor carga ala memoria y solo carga lo necesario en el momento
-    @JoinColumn(name = "id_usuario", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) //Esto es para que no genere un error el FetchType.Lazy
+    //Relacion entre tablas**********
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "fk_review_user"))
     private User user;
-    */
+
+    @ManyToOne
+    @JoinColumn(name = "id_business", nullable = false, foreignKey = @ForeignKey(name = "fk_review_business"))
+    private Business business;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+    //*****************************
 
     public Review() {
     }

@@ -54,4 +54,10 @@ public class ProductController {
         return new ResponseEntity<>(available, HttpStatus.OK);
     }
 
+    //GET: Obtener por businessID
+    @GetMapping("/business/{businessId}")
+    public ResponseEntity<List<ProductResponseDTO>> findByBusiness(@PathVariable Integer businessId) {
+        return new ResponseEntity<>(this.productService.findByBusiness(businessId), HttpStatus.OK);
+    }
+
 }

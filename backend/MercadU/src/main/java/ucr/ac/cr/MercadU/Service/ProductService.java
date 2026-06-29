@@ -2,9 +2,11 @@ package ucr.ac.cr.MercadU.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ucr.ac.cr.MercadU.model.entity.Business;
 import ucr.ac.cr.MercadU.model.entity.Product;
 import ucr.ac.cr.MercadU.model.dto.ProductRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.ProductResponseDTO;
+import ucr.ac.cr.MercadU.repository.BusinessRepository;
 import ucr.ac.cr.MercadU.repository.ProductRepository;
 
 import java.util.ArrayList;
@@ -17,13 +19,20 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private BusinessRepository businessRepository;
+
     // Guardar un producto nuevo
     public ProductResponseDTO saveProduct(ProductRequestDTO requestDTO) {
+        Business business = this.businessRepository.findById(requestDTO.getBusinessId())
+                .orElseThrow(() -> new RuntimeException("El emprendimiento no existe"));
+
         Product product = new Product();
         product.setName(requestDTO.getName());
         product.setDescription(requestDTO.getDescription());
         product.setPrice(requestDTO.getPrice());
         product.setAvailable(requestDTO.isAvailable());
+        product.setBusiness(business);
 
         Product productS = this.productRepository.save(product);
         return this.convertToResponseDTO(productS);
@@ -50,6 +59,10 @@ public class ProductService {
         return this.convertListDTO(listaProductos);
     }
 
+    public List<ProductResponseDTO> findByBusiness(Integer businessId) {
+        return this.convertListDTO(this.productRepository.findByBusinessId(businessId));
+    }
+
     //Zona DTO
     private ProductResponseDTO convertToResponseDTO(Product product) {
         return new ProductResponseDTO(
@@ -57,7 +70,10 @@ public class ProductService {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.isAvailable()
+                product.isAvailable(),
+                product.getBusiness().getId(),
+                product.getBusiness().getName(),
+                product.getBusiness().getOwner().getName()
         );
     }
 

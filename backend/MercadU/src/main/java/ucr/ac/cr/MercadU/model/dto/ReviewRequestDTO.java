@@ -13,8 +13,11 @@ public class ReviewRequestDTO {
     @Max(value = 5, message = "La calificación máxima es 5.")
     private Integer rating;
 
-    //Solo enviara el ID del estudiante
-    //private Integer idUsuario;
+    @NotNull(message = "El id del emprendimiento es obligatorio")
+    private Integer businessId;
+
+    @NotNull(message = "El id del usuario es obligatorio")
+    private Integer userId;
 
     public ReviewRequestDTO() {
     }
@@ -33,5 +36,21 @@ public class ReviewRequestDTO {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

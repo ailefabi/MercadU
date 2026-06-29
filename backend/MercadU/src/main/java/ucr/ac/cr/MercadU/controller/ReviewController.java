@@ -61,10 +61,9 @@ public class ReviewController {
     }
 
     //Obtener el promedio de calificación general
-    @GetMapping("/avg")
-    public ResponseEntity<Double> obtainAvgRating() {
-        Double promedio = this.reviewService.findAvgRating();
-        return new ResponseEntity<>(promedio, HttpStatus.OK);
+    @GetMapping("/business/{businessId}/avg")
+    public ResponseEntity<Double> obtainAvgRating(@PathVariable Integer businessId) {
+        return new ResponseEntity<>(this.reviewService.findAvgRatingByBusiness(businessId), HttpStatus.OK);
     }
 
     //Filtrar reseñas por cantidad de estrellas
@@ -81,7 +80,11 @@ public class ReviewController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-
+    //Buscar review por Business
+    @GetMapping("/business/{businessId}")
+    public ResponseEntity<List<ReviewResponseDTO>> findByBusiness(@PathVariable Integer businessId) {
+        return new ResponseEntity<>(this.reviewService.findByBusiness(businessId), HttpStatus.OK);
+    }
 
 
 

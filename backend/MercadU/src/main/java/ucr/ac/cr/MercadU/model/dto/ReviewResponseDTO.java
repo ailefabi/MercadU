@@ -8,17 +8,19 @@ public class ReviewResponseDTO {
     private Integer rating;
     private Date publicationDate;
 
-    //Datos del usuario
-    //private Integer idUsuario;
-    //private String nombreUsuario;
+    private Integer businessId;
+    private Integer userId;
+    private String userName;
 
-    public ReviewResponseDTO(Integer idReview, String comment, Integer rating, Date publicationDate) {
+    public ReviewResponseDTO(Integer idReview, String comment, Integer rating, Date publicationDate, Integer businessId, Integer userId, String userName) {
         this.idReview = idReview;
         this.comment = comment;
         this.rating = rating;
         this.publicationDate = publicationDate;
+        this.businessId = businessId;
+        this.userId = userId;
+        this.userName = userName;
     }
-
 
     public Integer getIdReview() {
         return idReview;
@@ -34,5 +36,17 @@ public class ReviewResponseDTO {
 
     public Date getPublicationDate() {
         return publicationDate;
+    }
+
+    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

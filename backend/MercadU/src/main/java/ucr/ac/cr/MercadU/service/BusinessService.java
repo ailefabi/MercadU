@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.model.dto.BusinessRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.BusinessResponseDTO;
 import ucr.ac.cr.MercadU.model.entity.Business;
+import ucr.ac.cr.MercadU.model.entity.User;
 import ucr.ac.cr.MercadU.repository.BusinessRepository;
+import ucr.ac.cr.MercadU.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +18,21 @@ public class BusinessService {
     @Autowired
     private BusinessRepository repository;
 
-    public BusinessResponseDTO saveBusiness (BusinessRequestDTO dto){
+    @Autowired
+    private UserRepository userRepository;
+
+    public BusinessResponseDTO saveBusiness(BusinessRequestDTO dto) {
+        User owner = this.userRepository.findById(dto.getOwnerId())
+                .orElseThrow(() -> new RuntimeException("El usuario propietario no existe"));
+
         Business business = new Business();
         business.setName(dto.getName());
         business.setDescription(dto.getDescription());
         business.setCategory(dto.getCategory());
+        business.setOwner(owner);
 
         Business savedBusiness = this.repository.save(business);
-
         return this.toResponseDTO(savedBusiness);
-
     }
 
     //PUEDE UASRSE ESTE O EL DE CONVERT LIST
@@ -81,7 +88,8 @@ public class BusinessService {
                 business.getId(),
                 business.getName(),
                 business.getDescription(),
-                business.getCategory()
+                business.getCategory(),
+                business.getOwner().getId()
         );
     }
 

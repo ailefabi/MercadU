@@ -1,6 +1,7 @@
 package ucr.ac.cr.MercadU.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -21,9 +22,46 @@ public class Business {
     @Column(name = "category", nullable = false, length = 100)
     private String category;
 
-//    @ManyToMany(mappedBy = "business")
-//    @JsonIgnore
+    //Relacion entre tablas**********
+    //Muchos negocios para un usuario (dueño)
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "fk_business_user"))
+    private User owner;
 
+    //Un negocio tiene muchos productos
+    @OneToMany(mappedBy = "business")
+    @JsonIgnore
+    private List<Product> listProduct;
+
+    //Un negocio tiene muchas reseñas
+    @OneToMany(mappedBy = "business")
+    @JsonIgnore
+    private List<Review> listReview;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<Product> getListProduct() {
+        return listProduct;
+    }
+
+    public void setListProduct(List<Product> listProduct) {
+        this.listProduct = listProduct;
+    }
+
+    public List<Review> getListReview() {
+        return listReview;
+    }
+
+    public void setListReview(List<Review> listReview) {
+        this.listReview = listReview;
+    }
+    //*****************************
 
     public Business() {
     }

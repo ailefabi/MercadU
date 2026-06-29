@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import ucr.ac.cr.MercadU.model.dto.LoginUserDTO;
 import ucr.ac.cr.MercadU.model.dto.UserRequestDTO;
 import ucr.ac.cr.MercadU.model.dto.UserResponseDTO;
+import ucr.ac.cr.MercadU.model.entity.Business;
 import ucr.ac.cr.MercadU.model.entity.User;
+import ucr.ac.cr.MercadU.repository.BusinessRepository;
 import ucr.ac.cr.MercadU.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,13 +21,16 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final BusinessRepository businessRepository;
 
     public AuthService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
-                       AuthenticationManager authenticationManager) {
+                       AuthenticationManager authenticationManager,
+                       BusinessRepository businessRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
+        this.businessRepository = businessRepository;
     }
 
     public UserResponseDTO register(UserRequestDTO dto) {
@@ -67,11 +73,17 @@ public class AuthService {
     }
 
     private UserResponseDTO convertToResponseDTO(User user) {
+        List<String> businessNames = this.businessRepository.findByOwnerId(user.getId())
+                .stream()
+                .map(Business::getName)
+                .toList();
+
         return new UserResponseDTO(
                 user.getId(),
                 user.getName(),
                 user.getEmailUcr(),
-                user.getRol()
+                user.getRol(),
+                businessNames
         );
     }
 }

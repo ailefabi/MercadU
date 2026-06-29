@@ -14,9 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     //Metodo para buscar productos más baratos o iguales a un precio
     List<Product> findByPriceLessThanEqual(Integer priceMax);
 
-
-    // Dejado comentado hasta que implementen Business
-    /*
     List<Product> findByBusinessId(Integer businessId);
-    */
 }

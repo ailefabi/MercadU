@@ -1,5 +1,6 @@
 package ucr.ac.cr.MercadU.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -29,12 +30,19 @@ public class Product {
     @Column(name = "available")
     private boolean available;
 
-    // Relación comentada temporalmente hasta que implementen Business
-    /*
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_business")
+    //Relacion entre tablas**********
+    @ManyToOne
+    @JoinColumn(name = "id_business", nullable = false, foreignKey = @ForeignKey(name = "fk_product_business"))
     private Business business;
-    */
+
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+    //*****************************
 
     public Product() {
     }

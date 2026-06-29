@@ -6,12 +6,14 @@ public class BusinessResponseDTO {
     private String name;
     private String description;
     private String category;
+    private Integer ownerId;
 
-    public BusinessResponseDTO(Integer id, String name, String description, String category) {
+    public BusinessResponseDTO(Integer id, String name, String description, String category, Integer ownerId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
+        this.ownerId = ownerId;
     }
 
     public Integer getId() {
@@ -28,5 +30,9 @@ public class BusinessResponseDTO {
 
     public String getCategory() {
         return category;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
     }
 }
